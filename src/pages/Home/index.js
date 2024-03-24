@@ -11,9 +11,18 @@ import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
+import ModalEvent from "../../containers/ModalEvent";
 
 const Page = () => {
-  const {last} = useData()
+  // Modif !! code origin : const {last} = useData()
+  // On change last en data
+  const { data } = useData()
+  // Modif !! AJOUT DE CODE 
+  // Création de last qui trie data pour récupéré le dernier event
+  const last = data?.events.sort((evtA, evtB) =>
+    new Date(evtB.date) - new Date(evtA.date)
+    )[0];
+
   return <>
     <header>
       <Menu />
@@ -22,7 +31,8 @@ const Page = () => {
       <section className="SliderContainer">
         <Slider />
       </section>
-      <section className="ServicesContainer">
+      {/* Modif !! Ajout d'ID pour navigation */}
+      <section className="ServicesContainer" id='nos-services'>
         <h2 className="Title">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
@@ -51,11 +61,13 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section className="EventsContainer">
+      {/* Modif !! Ajout d'ID pour la navigation */}
+      <section className="EventsContainer" id='nos-realisations'>
         <h2 className="Title">Nos réalisations</h2>
         <EventList />
       </section>
-      <section className="PeoplesContainer">
+      {/* Modif !! Ajout d'ID pour la navigation */}
+      <section className="PeoplesContainer" id='notre-equipe'>
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
@@ -113,16 +125,30 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row">
+    <footer className="row" data-testid="footer-testid">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+        {/* Modif !! AJOUT DE CODE
+        On ajout last et l'opérateur conditionnell && afin de 
+        vérifier si last est défini avant de render l'objet EventCard */}
+        {last && (
+          // Modif !! AJOUT DE CODE
+          // On ajout la modal  
+          // En copiant le shéma de Events/index
+          <Modal Content={<ModalEvent event={last} />}>
+            {({ setIsOpened }) => (
+              <EventCard
+                onClick={() => setIsOpened(true)}
+                imageSrc={last?.cover}
+                title={last?.title}
+                date={new Date(last?.date)}
+                small
+                label="boom"
+              />
+            )}
+          </Modal>
+        )}
+        
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

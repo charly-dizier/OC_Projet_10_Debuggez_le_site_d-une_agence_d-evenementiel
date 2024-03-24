@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Form from "./index";
 
 describe("When Events is created", () => {
@@ -22,7 +22,10 @@ describe("When Events is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await screen.findByText("Envoyer");
+      // Modif !! code origin : await screen.findByText("Envoyer");
+      // Ajout de waitFor afin de pouvoir tester la fonction asynchrome
+      // Problème trouver par lecture logique du code
+      await waitFor(() => screen.findByText("Envoyer"), {timeout:2000});
       expect(onSuccess).toHaveBeenCalled();
     });
   });

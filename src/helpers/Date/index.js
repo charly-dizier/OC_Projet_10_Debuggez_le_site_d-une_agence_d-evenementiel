@@ -13,4 +13,7 @@ export const MONTHS = {
   12: "décembre",
 };
 
-export const getMonth = (date) => MONTHS[date.getMonth()];
+// Modif !! code origin export const getMonth = (date) => MONTHS[date.getMonth()];
+// Ajout d'un +1 car le tableau commence a 0
+// Problème trouver par analyse des tests
+export const getMonth = (date) => MONTHS[date.getMonth() +1];

@@ -16,7 +16,10 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    // Modif !! code origin : onChange();
+    // Ajout de newValue qui avait été oublier
+    // Problème trouver grace aux test unitaire et lecture de code
+    onChange(newValue);
     setValue(newValue);
     setCollapsed(newValue);
   };
