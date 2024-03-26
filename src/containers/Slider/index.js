@@ -16,7 +16,7 @@ const Slider = () => {
       // On s'assure que l'index +1 est bien inférieur à la totalité des données du tableau. 
       // le ? s'assure que byDataDesc n'est pas null ou undefined, 
       // sinon l'ensemble renveras undefined sans généré d'erreur. 
-      // Problème trouver par lecture logique du code  
+      // Problème trouver par lecture logique du code et console navigateur 
       () => setIndex(index + 1 < byDateDesc?.length ? index + 1 : 0),
       5000
     );
@@ -28,44 +28,40 @@ const Slider = () => {
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
-        // Modif !! suppression d'une div inutile
-
-        // Modif !! code origin: <div key={event.title}
-        // Changement de key afin d'optenir une key unique
-        // Problème trouver grace a lecture de console inspecteur de code dans navigateur
-        <div key={event.date}>
-        <div
-        className={`SlideCard SlideCard--${index === idx ? "display" : "hide"}`}>
-          {/* Modif !! code origin: <img src={event.cover} alt="forum" />
-          Changement d'alt pour la data description   
-          Probblème trouver par lecture logique du code (mémoir, a confirme test de base) */}
-            <img src={event.cover} alt={event.description} />
+        // Modif !! Nomage de la balise vide et déplacement de la Key afin qu'elle englobe la totalité de l'élément.
+        // Problème trouve grace a lecture de console navigateur
+        <div key={event.title}>
+          <div 
+            className={`SlideCard SlideCard--${
+              index === idx ? "display" : "hide"
+            }`}
+          >
+            <img src={event.cover} alt="forum" />
             <div className="SlideCard__descriptionContainer">
               <div className="SlideCard__description">
                 <h3>{event.title}</h3>
                 <p>{event.description}</p>
                 <div>{getMonth(new Date(event.date))}</div>
               </div>
-              </div>
             </div>
+          </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
               {byDateDesc.map((_, radioIdx) => (
                 <input
-                // Modif !! code origin: key={`${event.id}`}
-                // Change de key afin d'obtenir une key égale a l'image actuellement afficher
-                // Problème trouver en grace a lecture de console inspecteur de code dans navigateur
-                  key={_.date}
+                  // Modif !! code origin: key={`${event.id}`}
+                  // Change de key, id n'existe pas dans notre data et "_" représente nos élement de la liste
+                  // Problème trouver en grace a lecture des erreurs console 
+                  key={_.title}
                   type="radio"
                   name="radio-button"
-                  /* Modi !! code origin checked={idx === radioIdx}
-                  Problème trouver par lecture logique du code
-                  Changement de idx par index afin d'indiquer quelle est l'image active */
+                  // Modif !! code origin checked={idx === radioIdx}
+                  // Changement de idx par index afin d'indiquer quelle est l'image active
+                  // Problème trouver par lecture logique du code
                   checked={index === radioIdx}
-
                   // Ajout de readOnly sur les boutons radio du slider 
-                  // afin qu'il ne soit qu'un indicateur visuel et non utilisable par les visiteur
-                  // Problème trouver grace console de navigateur
+                  // afin qu'il ne soit qu'un indicateur visuel et non utilisable par les visiteur.
+                  // Problème trouver grace a lecture d'erreur console
                   readOnly
                 />
               ))}
