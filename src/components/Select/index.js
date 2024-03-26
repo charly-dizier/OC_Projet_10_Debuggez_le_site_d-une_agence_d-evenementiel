@@ -17,8 +17,9 @@ const Select = ({
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
     // Modif !! code origin : onChange();
-    // Ajout de newValue qui avait été oublier
-    // Problème trouver grace aux test unitaire et lecture de code
+    // Ajout de l'attribut newValue qui avait été oublier.
+    // Sans cet attribut, aucune nouvelle information était transmit avec onChange
+    // Problème trouver grace à re-lecture de code et test d'intégration.
     onChange(newValue);
     setValue(newValue);
     setCollapsed(newValue);
