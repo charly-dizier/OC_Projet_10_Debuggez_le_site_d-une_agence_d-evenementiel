@@ -34,7 +34,7 @@ describe("When Form is created", () => {
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
-    // Ajout d'un test qui s'assure que le tableau events (qui contient les images des évènements)
+    // Ajout d'un test d'intégration qui s'assure que le tableau events (qui contient les images des évènements)
     // Soit suppérieur à zéro.
     // data-testid="card-image-testid" est présent dans le composant EventCard
     render(<Home />);
@@ -43,25 +43,25 @@ describe("When a page is created", () => {
   })
 
   it("a list a people is displayed", () => {
-    // Ajout d'un test qui s'assure que le tableau peopleCard (qui contient tous membres de l'équipe) 
+    // Ajout d'un test d'intégration qui s'assure que le tableau peopleCard (qui contient tous membres de l'équipe) 
     // soit suppérieur à zéro
     // data-testid="people-card-testid" est présent dans le composant PeopleCard
     render (<Home />);
     const peopleCard = screen.getAllByTestId("people-card-testid");
     expect(peopleCard.length).toBeGreaterThan(0);
 
-    // Ajout de test qui s'assure de la présence de deux éléments, nom et fonction, d'un des membres de l'équipe
+    // Ajout de test d'intégration qui s'assure de la présence de deux éléments, nom et fonction, d'un des membres de l'équipe
     screen.getByText("Samira");
     screen.getByText("CEO");
   })
 
   it("a footer is displayed", () => {
-    // Ajout d'un test qui s'assure de la présence du footer dans la page principal
+    // Ajout d'un test d'intégration qui s'assure de la présence du footer dans la page principal
     render(<Home />);
     const footer = screen.getByTestId("footer-testid");
     expect(footer).toBeInTheDocument();
 
-    // Ajout de test qui s'assure de la présence de deux élément du footer
+    // Ajout de test d'intégration qui s'assure de la présence de deux élément du footer
     screen.getByText("Contactez-nous")
     screen.getByText("contact@724events.com")
   })
